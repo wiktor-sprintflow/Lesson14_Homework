@@ -7,10 +7,14 @@ import java.util.Scanner;
 public class PositiveNumbers {
     public static void main(String[] args) {
         List<Integer> list = createList();
-        System.out.println("Lista w kolejności odwrotnej: " + printReversedList(list));
-        System.out.println("Suma listy: " + printSummedList(list) + sumList(list));
-        System.out.println("Najmniejszy element listy to: " + findMin(list));
-        System.out.println("Największy element listy to: " + findMax(list));
+        try {
+            System.out.println("Lista w kolejności odwrotnej: " + printReversedList(list));
+            System.out.println("Suma listy: " + printSummedList(list));
+            System.out.println("Najmniejszy element listy to: " + findMin(list));
+            System.out.println("Największy element listy to: " + findMax(list));
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public static List<Integer> createList() {
@@ -27,6 +31,7 @@ public class PositiveNumbers {
             number = input.nextInt();
             input.nextLine();
         }
+        input.close();
         return list;
     }
 
@@ -58,20 +63,14 @@ public class PositiveNumbers {
         return reversedList;
     }
 
-    private static int sumList(List<Integer> list) {
-        int sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            sum += list.get(i);
-        }
-        return sum;
-    }
-
     private static String printSummedList(List<Integer> list) {
         String summedList = "" + list.get(0);
+        int sum = list.get(0);
         for (int i = 1; i < list.size(); i++) {
             summedList += " + " + list.get(i);
+            sum += list.get(i);
         }
-        summedList += " = ";
+        summedList += " = " + sum;
         return summedList;
     }
 }

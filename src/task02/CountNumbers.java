@@ -12,8 +12,12 @@ public class CountNumbers {
     private static Set<Integer> set = new TreeSet<>();
 
     public static void main(String[] args) {
-        readDataFromFile(INPUT_FILE);
-        showNumbersAndOccurrences();
+        try {
+            readDataFromFile();
+            showNumbersAndOccurrences();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private static void showNumbersAndOccurrences() {
@@ -32,19 +36,15 @@ public class CountNumbers {
         return counter;
     }
 
-    private static void readDataFromFile(String file) {
-        File inputFile = new File(file);
+    private static void readDataFromFile() throws IOException {
+        File inputFile = new File(INPUT_FILE);
+        FileReader fileReader = new FileReader(inputFile);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        try (FileReader fileReader = new FileReader(inputFile);
-             BufferedReader bufferedReader = new BufferedReader(fileReader)
-        ) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                list.add(Integer.parseInt(line));
-                set.add(Integer.parseInt(line));
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            list.add(Integer.parseInt(line));
+            set.add(Integer.parseInt(line));
         }
     }
 }
