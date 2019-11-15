@@ -46,5 +46,6 @@ public class CountNumbers {
             list.add(Integer.parseInt(line));
             set.add(Integer.parseInt(line));
         }
+        bufferedReader.close();
     }
 }
